@@ -23,7 +23,7 @@ addEventListener('DOMContentLoaded', () => {
     const id = sp.get('id');
     //getCharacter(id)
     getPlanet(id);
-    document.getElementById('asdf').innerHTML = id;
+    //document.getElementById('asdf').innerHTML = id;
 
 
 });
