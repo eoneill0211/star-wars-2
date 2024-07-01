@@ -27,8 +27,17 @@ app.get('/api/films/:id/characters', async (req, res) => {
         const collection = db.collection("films_characters");
         const info = await collection.find({film_id: Number(id)}).toArray();
         
+        var dict = []; // Create an empty array
 
-        res.json(info);
+        for (let i = 0; i < info.length; i++) {
+            
+            var character_name = await db.collection("characters").find({id: Number(info[i].character_id)}).toArray();
+
+            dict.push(character_name[0]);
+          }
+        res.json(dict);
+
+
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("Error :( ");
@@ -40,8 +49,18 @@ app.get('/api/films/:id/planets', async (req, res) => {
         const client = await MongoClient.connect(url);
         const db = client.db(dbName);
         const collection = db.collection("films_planets");
-        const info = await collection.find({film_id: Number(_id)}).toArray();
-        res.json(info);
+        const info = await collection.find({film_id: Number(id)}).toArray();
+
+        var dict = [];
+        for (let i = 0; i < info.length; i++) {
+            
+            var character_name = await db.collection("planets").find({id: Number(info[i].planet_id)}).toArray();
+
+
+            dict.push(character_name[0]);
+          }
+
+        res.json(dict);
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("Error :( ");
@@ -54,7 +73,18 @@ app.get('/api/characters/:id/films', async (req, res) => {
         const db = client.db(dbName);
         const collection = db.collection("films_characters");
         const info = await collection.find({character_id: Number(id)}).toArray();
-        res.json(info);
+
+        var dict = [];
+        for (let i = 0; i < info.length; i++) {
+            
+            var character_name = await db.collection("films").find({id: Number(info[i].film_id)}).toArray();
+
+
+            dict.push(character_name[0]);
+          }
+
+        res.json(dict);
+
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("Error :( ");
@@ -93,7 +123,18 @@ app.get('/api/planets/:id/films', async (req, res) => {
         const db = client.db(dbName);
         const collection = db.collection("films_planets");
         const info = await collection.find({film_id: Number(id)}).toArray();
-        res.json(info);
+
+        var dict = [];
+        for (let i = 0; i < info.length; i++) {
+            
+            var character_name = await db.collection("films").find({id: Number(info[i].film_id)}).toArray();
+
+
+            dict.push(character_name[0]);
+          }
+
+        res.json(dict);
+        
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("Error :( ");
