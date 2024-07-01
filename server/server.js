@@ -16,12 +16,133 @@ const PORT = 3000;
 
 // Endpoint to read and send JSON file content
 // Endpoint to read and send JSON file content
-app.get('/api/:collectionName', async (req, res) => {
+
+
+// Begin 
+app.get('/api/films/:id/characters', async (req, res) => {
     try {
-        const { collectionName } = req.params;
+        const id = req.params.id;
         const client = await MongoClient.connect(url);
         const db = client.db(dbName);
-        const collection = db.collection(collectionName);
+        const collection = db.collection("films_characters");
+        const info = await collection.find({film_id: Number(id)}).toArray();
+        
+
+        res.json(info);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Error :( ");
+    }
+});
+app.get('/api/films/:id/planets', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection("films_planets");
+        const info = await collection.find({film_id: Number(_id)}).toArray();
+        res.json(info);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Error :( ");
+    }
+});
+app.get('/api/characters/:id/films', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection("films_characters");
+        const info = await collection.find({character_id: Number(id)}).toArray();
+        res.json(info);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Error :( ");
+    }
+});
+// app.get('/api/characters/:id/planets', async (req, res) => {
+//     try {
+//         const id = req.params.id;
+//         const client = await MongoClient.connect(url);
+//         const db = client.db(dbName);
+//         const collection = db.collection("characters");
+//         const info = await collection.find({id: Number(id)}).toArray();
+//         res.json(info);
+//     } catch (err) {
+//         console.error("Error:", err);
+//         res.status(500).send("Error :( ");
+//     }
+// });
+// app.get('/api/planets/:id/characters', async (req, res) => {
+//     try {
+//         const id = req.params.id;
+//         const client = await MongoClient.connect(url);
+//         const db = client.db(dbName);
+//         const collection = db.collection("planets");
+//         const info = await collection.find({id: Number(id)}).toArray();
+//         res.json(info);
+//     } catch (err) {
+//         console.error("Error:", err);
+//         res.status(500).send("Error :( ");
+//     }
+// });
+app.get('/api/planets/:id/films', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection("films_planets");
+        const info = await collection.find({film_id: Number(id)}).toArray();
+        res.json(info);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Error :( ");
+    }
+});
+app.get('/api/films/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection("films");
+        const info = await collection.find({id: Number(id)}).toArray();
+        res.json(info);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Error :( ");
+    }
+});
+app.get('/api/planets/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection("planets");
+        const info = await collection.find({id: Number(id)}).toArray();
+        res.json(info);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Error :( ");
+    }
+});
+app.get('/api/characters/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection("characters");
+        const info = await collection.find({id: Number(id)}).toArray();
+        res.json(info);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Error :( ");
+    }
+});
+app.get('/api/characters', async (req, res) => {
+    try {
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection("characters");
         const info = await collection.find({}).toArray();
         res.json(info);
     } catch (err) {
@@ -29,7 +150,31 @@ app.get('/api/:collectionName', async (req, res) => {
         res.status(500).send("Error :( ");
     }
 });
- 
+app.get('/api/films', async (req, res) => {
+    try {
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection("films");
+        const info = await collection.find({}).toArray();
+        res.json(info);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Error :( ");
+    }
+});
+app.get('/api/planets', async (req, res) => {
+    try {
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection("planets");
+        const info = await collection.find({}).toArray();
+        res.json(info);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Error :( ");
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
