@@ -22,28 +22,11 @@ import {
 //import AddSock from "./components/AddSock";
 //import sock_data from './assets/sock.json';
 
-function App() {
-  const [characterData, setData] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(import.meta.env.VITE_SWAPI_URL);
-        if (!response.ok) {
-          throw new Error('Data could not be fetched!');
-        }
-        const json_response = await response.json();
-        setData(json_response);
-        console.log(characterData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, [characterData]);
 
-  
+
+  function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">TSE</a>
@@ -80,7 +63,7 @@ function App() {
           <div className="row">
             {/* <Featured data={promo_data} /> */}
             <Routes>
-            <Route exact path="/" element={<Characters characterData={characterData} />} />
+            <Route exact path="/" element={<Characters />} />
             {/* <Route path="/about" element={<About />} /> */}
             {/* <Route path="/add" element={<AddSock />} /> */}
             </Routes>
@@ -90,8 +73,8 @@ function App() {
           </div>
         </div>
       </main>
-    </Router>
+    </BrowserRouter>
   )
-}
+  }
 
 export default App;

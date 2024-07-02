@@ -13,11 +13,29 @@ import React, { useState, useEffect } from "react";
 //         </div>
 //     )
 // };
+function Characters() {
+    const [characterData, setCharacterData] = useState([]);
+    useEffect(() => {
+      const fetchCharacterData = async () => {
+        try {
+          const response = await fetch(import.meta.env.VITE_SWAPI_URL+"/characters");
+          if (!response.ok) {
+            throw new Error('Data could not be fetched!');
+          }
+          const json_response = await response.json();
+          setCharacterData(json_response);
+          console.log(characterData);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+      fetchCharacterData();
+    }, []) };
 
-const Characters = (props) => {
-    return (props.toArray);
-};
-export default Characters
+// const Characters = (props) => {
+//     return (<div className="chars">props.toArray</div>);
+// };
+// export default Characters
 
 // const characters = () => {
 //     const [characterData, setsetCharacterData] = useState({
