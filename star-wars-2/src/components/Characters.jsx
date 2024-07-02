@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 
-function Characters() {
-    const [characterData, setCharacterData] = useState(null)
-    useEffect(() => {
-        fetch("http://localhost:3000/api/characters:id")
-        .then(response => response.json())
-        .then(data=>setCharacterData(data.name))
-    },[])
-    return (
-        <div className="Characters">
-        {characterData} 
-        </div>
-    )
+// function Characters() {
+//     const [characterData, setCharacterData] = useState(null)
+//     useEffect(() => {
+//         fetch("http://localhost:3000/api/characters/:id")
+//         .then(response => response.json())
+//         .then(data=>setCharacterData(data.name))
+//     },[])
+//     return (
+//         <div className="Characters">
+//         {characterData} 
+//         </div>
+//     )
+// };
+
+const Characters = (props) => {
+    return (props.toArray);
 };
 export default Characters
 

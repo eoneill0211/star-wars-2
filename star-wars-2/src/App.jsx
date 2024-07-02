@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import dotenv from 'dotenv';
 import './App.css'
+import Characters from './components/Characters'
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Link
 } from "react-router-dom";
-
 
 //import Sock from "./components/Sock";
 //import promo_data from './assets/promo.json';
@@ -22,7 +23,7 @@ import {
 //import sock_data from './assets/sock.json';
 
 function App() {
-  const [data, setData] = useState([]);
+  const [characterData, setData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,13 +33,13 @@ function App() {
         }
         const json_response = await response.json();
         setData(json_response);
+        console.log(characterData);
       } catch (error) {
-        console.error('Error fetching socks:', error);
+        console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
-  }, []);
+  }, [characterData]);
 
   
   return (
@@ -70,18 +71,18 @@ function App() {
                 <a className="nav-link disabled" aria-disabled="true">Disabled</a>
               </li>
             </ul>
-            <Search setData={setData} />
+            {/* <Search setData={setData} /> */}
           </div>
         </div>
       </nav>
       <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
         <div className="container-fluid">
           <div className="row">
-            <Featured data={promo_data} />
+            {/* <Featured data={promo_data} /> */}
             <Routes>
-            <Route exact path="/" element={<Home data={data} />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/add" element={<AddSock />} />
+            <Route exact path="/" element={<Characters characterData={characterData} />} />
+            {/* <Route path="/about" element={<About />} /> */}
+            {/* <Route path="/add" element={<AddSock />} /> */}
             </Routes>
             <footer className={import.meta.env.VITE_ENVIRONMENT === "development" ? "bg-yellow" : import.meta.env.VITE_ENVIRONMENT === "production" ? "bg-green" : ""}>
               <div><strong>{import.meta.env.VITE_ENVIRONMENT.toUpperCase()}</strong></div>
